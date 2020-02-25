@@ -63,9 +63,31 @@ public class SimpleList {
 		count++;
 	}
 	
+	public void append(int num) {
+		if (count == 0) {
+			list[0] = num;
+		}
+		else {
+			if(count < size) {
+				list[count] = num;
+			}
+			else {
+				int newSize = size + (size/2);
+				int[] newList = new int[newSize];
+				for (int ndx = 0; ndx < count; ndx++) {
+					newList[ndx] = list[ndx];
+				}
+				list[count] = num;
+			}
+		}
+		count++;
+	}
+	
 	/**
 	 * Removes a specified element of the list if it is present, and 
-	 * decrements the total elements of the list.
+	 * decrements the total elements of the list. If the list has more
+	 * than 25% empty spots after removing the element then the capacity
+	 * of the list is decreased by 25%.
 	 * 
 	 * @param num the integer to be removed from the list if in the list
 	 */
@@ -87,7 +109,16 @@ public class SimpleList {
 					list[ndxToRemove] = curr;
 				}
 			}
-			count--; 
+			count--;
+			if (count < (.75 * size)) {
+				int newSize = (int)(0.75 * size);
+				int[] newList = new int[newSize];
+				for (int ndx = 0; ndx < count; ndx++) {
+					newList[ndx] = list[ndx];
+				}
+				list = newList;
+				size = newSize;
+			}
 		}
 	}
 	

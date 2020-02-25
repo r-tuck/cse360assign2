@@ -85,6 +85,9 @@ class SimpleListTest {
 				+ "removed from the list");
 		assertEquals(2, tester.count(), 
 				"List must have a count of 2 after Test");
+		assertEquals(7, tester.size(), 
+				"List will decrease by 25% as the list had"
+				+ "more than 25% empty spaces");
 		assertEquals(-1, tester.search(2), 
 				"List must not contain 1 after the test");
 	}
@@ -120,6 +123,9 @@ class SimpleListTest {
 				+ "removed from the list");
 		assertEquals(2, tester.count(), 
 				"List must have a count of 2 after Test");
+		assertEquals(7, tester.size(), 
+				"List will decrease by 25% as the list had"
+				+ "more than 25% empty spaces");
 		assertEquals(-1, tester.search(3), 
 				"List must not contain 1 after the test");
 	}
@@ -137,6 +143,9 @@ class SimpleListTest {
 		assertEquals(0, tester.count(), 
 				"List must show that it still has a size "
 				+ "of 0 after the test");
+		assertEquals(7, tester.size(), 
+				"List will decrease by 25% as the list had"
+				+ "more than 25% empty spaces");
 		assertEquals(-1, tester.search(2), 
 				"List must not contain 1 after the test");
 	}
@@ -156,6 +165,9 @@ class SimpleListTest {
 				+ "removed from the list");
 		assertEquals(2, tester.count(), 
 				"List must have a count of 2 after Test");
+		assertEquals(7, tester.size(), 
+				"List will decrease by 25% as the list had"
+				+ "more than 25% empty spaces");
 		assertEquals(-1, tester.search(1), 
 				"List must not contain 1 after the test");
 	}
@@ -309,6 +321,63 @@ class SimpleListTest {
 		assertEquals("", tester.toString(), 
 				"List must show that the resulting string is "
 				+ "empty as the list is empty");
+	}
+	
+	@Test
+	// Test to show that the append method is functional
+	public void testAppendSimple() {
+		SimpleList tester = new SimpleList();
+		tester.append(1);
+		tester.append(2);
+		tester.append(3);
+		tester.append(4);
+		
+		assertEquals("1 2 3 4", tester.toString(), 
+				"List must add 1, 2, 3, 4 in the correct order");
+		assertEquals(4, tester.count(), 
+				"List must have a count of 4 after Test");
+	}
+	
+	@Test
+	// Test to show that the append method works for edge case where the
+	// list is empty
+	public void testAppendEmptyList() {
+		SimpleList tester = new SimpleList();
+		tester.append(1);
+		
+		assertEquals("1", tester.toString(), 
+				"List must add only 1 to and Empty List");
+		assertEquals(1, tester.count(), 
+				"List must have a count of 1 after Test");
+	}
+	
+	@Test
+	// Test to show that the append method works as intended when the list is
+	// empty by removing the last element of the list when a new element 
+	// is added
+	public void testAppendFullList() {
+		SimpleList tester = new SimpleList();
+		tester.append(1);
+		tester.append(2);
+		tester.append(3);
+		tester.append(4);
+		tester.append(5);
+		tester.append(6);
+		tester.append(7);
+		tester.append(8);
+		tester.append(9);
+		tester.append(10);
+		tester.append(11);
+		
+		assertEquals("1 2 3 4 5 6 7 8 9 10 11", tester.toString(), 
+				"List must include all elements of the list including"
+				+ "the first element added 11");
+		assertEquals(11, tester.count(), 
+				"List must show that the size was increased by 50%"
+				+ "as the list was previously full");
+		assertEquals(15, tester.size(), 
+				"List must show that capacity of the list is"
+				+ "15 as the list was previously full");
 	}
 	
 }

@@ -77,7 +77,9 @@ public class SimpleList {
 				for (int ndx = 0; ndx < count; ndx++) {
 					newList[ndx] = list[ndx];
 				}
-				list[count] = num;
+				newList[count] = num;
+				list = newList;
+				size = newSize;
 			}
 		}
 		count++;

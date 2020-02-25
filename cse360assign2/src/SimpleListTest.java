@@ -13,6 +13,33 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class SimpleListTest {
+	
+	@Test
+	// Complex case using add, append, and remove method to make sure that 
+	// a complex series of the methods results in the correct size, element
+	// count, and list elements.
+	public void testComplexCase() {
+		SimpleList tester = new SimpleList();
+		tester.add(101);
+		tester.remove(1);
+		tester.remove(4);
+		for (int num = 100; num >= 1; num--) {
+			tester.add(num);
+		}
+		for (int num = 1; num <= 99; num++) {
+			tester.remove(num);
+		}
+		tester.append(102);
+		tester.add(99);
+		
+		
+		assertEquals("99 100 101 102", tester.toString(), 
+				"Resulting list should be 99, 100, 101, 102");
+		assertEquals(4, tester.count(), 
+				"List must have a count of 3 after Test");
+		assertEquals(4, tester.size(), 
+				"List must have a count of 4 after Test");
+	}
 
 	@Test
 	// Test to show that the add method is functional
@@ -43,9 +70,9 @@ class SimpleListTest {
 	}
 	
 	@Test
-	// Test to show that the add method works as intended when the list is
-	// empty by removing the last element of the list when a new element 
-	// is added
+	// Test to show that the add method works as intended for the edge case
+	// where list is at capacity, and makes sure that the capacity is increased
+	// by the correct amount.
 	public void testAddFullList() {
 		SimpleList tester = new SimpleList();
 		tester.add(11);
@@ -69,6 +96,99 @@ class SimpleListTest {
 		assertEquals(15, tester.size(), 
 				"List must show that capacity of the list is"
 				+ "15 as the list was previously full");
+	}
+	
+	@Test
+	// Test to show that the add method works as intended when the number elements
+	// added is very large, the capacity of the list and the number of elements in
+	// the list should be updated correctly.
+	public void testAddLargeList() {
+		SimpleList tester = new SimpleList();
+		for (int num = 1; num <= 100; num++) {
+			tester.add(num);
+		}
+		
+		assertEquals(100, tester.count(), 
+				"List must show that the number of elements in the "
+				+ "list equal to 100");
+		assertEquals(109, tester.size(), 
+				"List must show that the capacity was increased the appropriate "
+				+ "amount of times and now is set to 109");
+	}
+	
+	@Test
+	// Test to show that the append method is functional
+	public void testAppendSimple() {
+		SimpleList tester = new SimpleList();
+		tester.append(1);
+		tester.append(2);
+		tester.append(3);
+		tester.append(4);
+		
+		assertEquals("1 2 3 4", tester.toString(), 
+				"List must add 1, 2, 3, 4 in the correct order");
+		assertEquals(4, tester.count(), 
+				"List must have a count of 4 after Test");
+	}
+	
+	@Test
+	// Test to show that the append method works for edge case where the
+	// list is empty
+	public void testAppendEmptyList() {
+		SimpleList tester = new SimpleList();
+		tester.append(1);
+		
+		assertEquals("1", tester.toString(), 
+				"List must add only 1 to and Empty List");
+		assertEquals(1, tester.count(), 
+				"List must have a count of 1 after Test");
+	}
+	
+	@Test
+	// Test to show that the append method works as intended when the list is
+	// empty by removing the last element of the list when a new element 
+	// is added
+	public void testAppendFullList() {
+		SimpleList tester = new SimpleList();
+		tester.append(1);
+		tester.append(2);
+		tester.append(3);
+		tester.append(4);
+		tester.append(5);
+		tester.append(6);
+		tester.append(7);
+		tester.append(8);
+		tester.append(9);
+		tester.append(10);
+		tester.append(11);
+		
+		assertEquals("1 2 3 4 5 6 7 8 9 10 11", tester.toString(), 
+				"List must include all elements of the list including"
+				+ "the first element added 11");
+		assertEquals(11, tester.count(), 
+				"List must show that the size was increased by 50%"
+				+ "as the list was previously full");
+		assertEquals(15, tester.size(), 
+				"List must show that capacity of the list is"
+				+ "15 as the list was previously full");
+	}
+	
+	@Test
+	// Test to show that the add method works as intended when the number elements
+	// added is very large, the capacity of the list and the number of elements in
+	// the list should be updated correctly.
+	public void testAppendLargeList() {
+		SimpleList tester = new SimpleList();
+		for (int num = 1; num <= 100; num++) {
+			tester.append(num);
+		}
+		
+		assertEquals(100, tester.count(), 
+				"List must show that the number of elements in the "
+				+ "list equal to 100");
+		assertEquals(109, tester.size(), 
+				"List must show that the capacity was increased the appropriate "
+				+ "amount of times and now is set to 109");
 	}
 	
 	@Test
@@ -167,6 +287,27 @@ class SimpleListTest {
 				"List must have a count of 2 after Test");
 		assertEquals(7, tester.size(), 
 				"List will decrease by 25% as the list had"
+				+ "more than 25% empty spaces");
+		assertEquals(-1, tester.search(1), 
+				"List must not contain 1 after the test");
+	}
+	
+	@Test
+	// Test to show that the remove method works as intended for the
+	// edge case that the integer to remove is at the front of the list
+	public void testRemoveLargeList() {
+		SimpleList tester = new SimpleList();
+		for (int num = 1; num <= 100; num++) {
+			tester.append(num);
+		}
+		for (int num = 1; num <= 100; num++) {
+			tester.remove(num);
+		}
+		
+		assertEquals(0, tester.count(), 
+				"List must have a count of 0 after Test");
+		assertEquals(1, tester.size(), 
+				"List will decrease by 25% every time there is"
 				+ "more than 25% empty spaces");
 		assertEquals(-1, tester.search(1), 
 				"List must not contain 1 after the test");
@@ -324,60 +465,117 @@ class SimpleListTest {
 	}
 	
 	@Test
-	// Test to show that the append method is functional
-	public void testAppendSimple() {
+	// Test to show that the size method is functional
+	public void testSizeSimpleAdd() {
 		SimpleList tester = new SimpleList();
-		tester.append(1);
-		tester.append(2);
-		tester.append(3);
-		tester.append(4);
+		tester.add(3);
+		tester.add(2);
+		tester.add(1);	
 		
-		assertEquals("1 2 3 4", tester.toString(), 
-				"List must add 1, 2, 3, 4 in the correct order");
-		assertEquals(4, tester.count(), 
-				"List must have a count of 4 after Test");
+		assertEquals(10, tester.size(), 
+				"After adding three elements to the list the capacity"
+				+ "of the list should remain the same");
 	}
 	
 	@Test
-	// Test to show that the append method works for edge case where the
-	// list is empty
-	public void testAppendEmptyList() {
+	// Test to show that the size method works as intended when an 
+	// element is removed from the list.
+	public void testSizeSimpleSubtract() {
 		SimpleList tester = new SimpleList();
-		tester.append(1);
+		tester.add(3);
+		tester.add(2);
+		tester.add(1);
+		tester.remove(2);
 		
-		assertEquals("1", tester.toString(), 
-				"List must add only 1 to and Empty List");
-		assertEquals(1, tester.count(), 
-				"List must have a count of 1 after Test");
+		assertEquals(7, tester.size(), 
+				"After adding three elements and subtracting one the "
+				+ "size is decreased to 7 as the list is more than"
+				+ "25% empty spaces");
 	}
 	
 	@Test
-	// Test to show that the append method works as intended when the list is
-	// empty by removing the last element of the list when a new element 
-	// is added
-	public void testAppendFullList() {
+	// Test to show that the size method works as intended when an element
+	// is added to a full list.
+	public void testSizeFullList() {
 		SimpleList tester = new SimpleList();
-		tester.append(1);
-		tester.append(2);
-		tester.append(3);
-		tester.append(4);
-		tester.append(5);
-		tester.append(6);
-		tester.append(7);
-		tester.append(8);
-		tester.append(9);
-		tester.append(10);
-		tester.append(11);
+		tester.add(11);
+		tester.add(10);
+		tester.add(9);
+		tester.add(8);
+		tester.add(7);
+		tester.add(6);
+		tester.add(5);
+		tester.add(4);
+		tester.add(3);
+		tester.add(2);
+		tester.add(1);		
 		
-		assertEquals("1 2 3 4 5 6 7 8 9 10 11", tester.toString(), 
-				"List must include all elements of the list including"
-				+ "the first element added 11");
-		assertEquals(11, tester.count(), 
-				"List must show that the size was increased by 50%"
-				+ "as the list was previously full");
 		assertEquals(15, tester.size(), 
-				"List must show that capacity of the list is"
-				+ "15 as the list was previously full");
+				"The capacity of the list will increase"
+				+ "by 50% as the list hit full capacity");
+	}
+	
+	@Test
+	// Test to show that the size method is functional
+	public void testFirstSimpleAdd() {
+		SimpleList tester = new SimpleList();
+		tester.add(3);
+		tester.add(2);
+		tester.add(1);	
+		
+		assertEquals(1, tester.first(), 
+				"After adding all elements to the list the first "
+				+ "element in the list should be 1");
+	}
+	
+	@Test
+	// Test to show that the size method works as intended when an 
+	// element is removed from the list.
+	public void testFirstSimpleSubtract() {
+		SimpleList tester = new SimpleList();
+		tester.add(3);
+		tester.add(2);
+		tester.add(1);
+		tester.remove(1);
+		
+		assertEquals(2, tester.first(), 
+				"After adding three elements then removing the first element"
+				+ "the element at the front of the list should be 2");
+	}
+	
+	@Test
+	// Test to show that the size method works as intended when an element
+	// is added to a full list.
+	public void testFirstFullList() {
+		SimpleList tester = new SimpleList();
+		tester.add(11);
+		tester.add(10);
+		tester.add(9);
+		tester.add(8);
+		tester.add(7);
+		tester.add(6);
+		tester.add(5);
+		tester.add(4);
+		tester.add(3);
+		tester.add(2);
+		tester.add(1);		
+		
+		assertEquals(1, tester.first(), 
+				"After adding all elements to the list the element at the front "
+				+ "of the list should be 1");
+	}
+	
+	@Test
+	// Test to show that the size method works as intended for the edge
+	// case that the list is empty.
+	public void testFirstEmptyList() {
+		SimpleList tester = new SimpleList();
+		tester.add(1);
+		tester.remove(1);
+		
+		assertEquals(0, tester.first(), 
+				"After removing the only element in the list the first element in "
+				+ "the list should be 0");
 	}
 	
 }

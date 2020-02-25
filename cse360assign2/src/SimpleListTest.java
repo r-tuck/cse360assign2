@@ -1,6 +1,6 @@
 /*
  * Ryan Tucker
- * Assignment 1
+ * Assignment 2
  * Class ID: 226
  * 
  * This class provides a series of tests for the SimpleList class that will
@@ -60,12 +60,15 @@ class SimpleListTest {
 		tester.add(2);
 		tester.add(1);		
 		
-		assertEquals("1 2 3 4 5 6 7 8 9 10", tester.toString(), 
-				"List must show numbers 1-10 in order and "
-				+ "not include 11");
-		assertEquals(10, tester.count(), 
-				"List must have a count of 10 after Test "
-				+ "to show count cannot go over 10");
+		assertEquals("1 2 3 4 5 6 7 8 9 10 11", tester.toString(), 
+				"List must include all elements of the list including"
+				+ "the first element added 11");
+		assertEquals(11, tester.count(), 
+				"List must show that the size was increased by 50%"
+				+ "as the list was previously full");
+		assertEquals(15, tester.size(), 
+				"List must show that capacity of the list is"
+				+ "15 as the list was previously full");
 	}
 	
 	@Test
@@ -202,9 +205,9 @@ class SimpleListTest {
 		tester.add(2);
 		tester.add(1);		
 		
-		assertEquals(10, tester.count(), 
-				"List must have a count of 10 after Test "
-				+ "to show count cannot go over 10");
+		assertEquals(11, tester.count(), 
+				"List must show that the list contains 11"
+				+ "elements after the following operations");
 	}
 	
 	@Test
@@ -294,9 +297,8 @@ class SimpleListTest {
 		tester.add(2);
 		tester.add(1);		
 		
-		assertEquals("1 2 3 4 5 6 7 8 9 10", tester.toString(), 
-				"List must show numbers 1-10 in order and "
-				+ "not include 11");
+		assertEquals("1 2 3 4 5 6 7 8 9 10 11", tester.toString(), 
+				"List must show numbers 1-11");
 	}
 	
 	@Test

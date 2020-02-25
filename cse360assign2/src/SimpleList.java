@@ -1,6 +1,6 @@
 /*
  * Ryan Tucker
- * Assignment 1
+ * Assignment 2
  * Class ID: 226
  * 
  * This class creates a simple list of up to 10 integers, as well
@@ -14,6 +14,8 @@ public class SimpleList {
 	private int[] list;
 	// Number of elements currently in the list
 	private int count;
+	// Size of the current list
+	private int size;
 
 	/**
 	 * Constructor for the class, initializes the array to an array of 
@@ -23,6 +25,7 @@ public class SimpleList {
 	public SimpleList()	{
 		this.list = new int[10];
 		this.count = 0;
+		this.size = 10;
 	}
 	
 	/**
@@ -37,20 +40,27 @@ public class SimpleList {
 			list[0] = num;
 		}
 		else {
-			int curr = num;
-			int next = num;
-			for (int ndx = 0; ndx < count; ndx++) {
-				next = list[ndx];
-				list[ndx] = curr;
-				curr = next;
+			if(count < size) {
+				int curr = num;
+				int next = num;
+				for (int ndx = 0; ndx <= count; ndx++) {
+					next = list[ndx];
+					list[ndx] = curr;
+					curr = next;
+				}
 			}
-			if(count != 10 ) {
-				list[count] = curr;
+			else {
+				int newSize = size + (size/2);
+				int[] newList = new int[newSize];
+				newList[0] = num;
+				for (int ndx = 0; ndx < count; ndx++) {
+					newList[ndx+1] = list[ndx];
+				}
+				list = newList;
+				size = newSize;
 			}
 		}
-		if (count != 10) {
-			count++;
-		}
+		count++;
 	}
 	
 	/**
@@ -92,6 +102,23 @@ public class SimpleList {
 		return count;
 	}
 	
+	/**
+	 * Returns an integer representing the capacity of the list
+	 * 
+	 * @return	an integer representing the capacity of the list
+	 */
+	public int size() {
+		return size;
+	}
+	
+	/**
+	 * Returns an integer representing the first integer in the list
+	 * 
+	 * @return	an integer representing the first element in the list
+	 */
+	public int first() {
+		return list[0];
+	}
 	/*
 	 * Returns a string representation of the list of integers  that
 	 * is all current numbers in the list separated by a single space. 

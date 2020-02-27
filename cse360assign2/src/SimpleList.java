@@ -114,6 +114,9 @@ public class SimpleList {
 			count--;
 			if (count < (.75 * size)) {
 				int newSize = (int)(0.75 * size);
+				if (newSize < 1) {
+					newSize = 1;
+				}
 				int[] newList = new int[newSize];
 				for (int ndx = 0; ndx < count; ndx++) {
 					newList[ndx] = list[ndx];
@@ -150,8 +153,28 @@ public class SimpleList {
 	 * @return	an integer representing the first element in the list
 	 */
 	public int first() {
-		return list[0];
+		if (count > 0) {
+			return list[0];
+		}
+		else {
+			return -1;
+		}
 	}
+	
+	/**
+	 * Returns an integer representing the last integer in the list
+	 * 
+	 * @return	an integer representing the last element in the list
+	 */
+	public int last() {
+		if (count > 0) {
+			return list[count-1];
+		}
+		else {
+			return -1;
+		}
+	}
+	
 	/*
 	 * Returns a string representation of the list of integers  that
 	 * is all current numbers in the list separated by a single space. 

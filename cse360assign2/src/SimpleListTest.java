@@ -224,6 +224,9 @@ class SimpleListTest {
 		assertEquals(0, tester.count(), 
 				"List must show that it still has a size "
 				+ "of 0 after the test");
+		assertEquals(10, tester.size(), 
+				"List size should not decrease as there was no "
+				+ "elements removed from the list");
 		assertEquals(-1, tester.search(2), 
 				"List must not contain 1 after the test");
 	}
@@ -516,7 +519,7 @@ class SimpleListTest {
 	}
 	
 	@Test
-	// Test to show that the size method is functional
+	// Test to show that the first method works as intended with add method
 	public void testFirstSimpleAdd() {
 		SimpleList tester = new SimpleList();
 		tester.add(3);
@@ -529,8 +532,7 @@ class SimpleListTest {
 	}
 	
 	@Test
-	// Test to show that the size method works as intended when an 
-	// element is removed from the list.
+	// Test to show that the first method works as intended with subtract method
 	public void testFirstSimpleSubtract() {
 		SimpleList tester = new SimpleList();
 		tester.add(3);
@@ -544,7 +546,7 @@ class SimpleListTest {
 	}
 	
 	@Test
-	// Test to show that the size method works as intended when an element
+	// Test to show that the first method works as intended when an element
 	// is added to a full list.
 	public void testFirstFullList() {
 		SimpleList tester = new SimpleList();
@@ -566,16 +568,78 @@ class SimpleListTest {
 	}
 	
 	@Test
-	// Test to show that the size method works as intended for the edge
+	// Test to show that the first method works as intended for the edge
 	// case that the list is empty.
 	public void testFirstEmptyList() {
 		SimpleList tester = new SimpleList();
 		tester.add(1);
 		tester.remove(1);
 		
-		assertEquals(0, tester.first(), 
-				"After removing the only element in the list the first element in "
-				+ "the list should be 0");
+		assertEquals(-1, tester.first(), 
+				"After removing the only element in the list the first method should "
+				+ "return -1 as the list is empty");
+	}
+	
+	@Test
+	// Test to show that the last method works as intended with add method
+	public void testLastSimpleAdd() {
+		SimpleList tester = new SimpleList();
+		tester.add(3);
+		tester.add(2);
+		tester.add(1);	
+		
+		assertEquals(3, tester.last(), 
+				"After adding all elements to the list the last "
+				+ "element in the list should be 3");
+	}
+	
+	@Test
+	// Test to show that the last method works as intended with subtract method
+	public void testLastSimpleSubtract() {
+		SimpleList tester = new SimpleList();
+		tester.add(3);
+		tester.add(2);
+		tester.add(1);
+		tester.remove(3);
+		
+		assertEquals(2, tester.last(), 
+				"After adding three elements then removing the last element"
+				+ "the element at the end of the list should be 2");
+	}
+	
+	@Test
+	// Test to show that the last method works as intended when an element
+	// is added to a full list.
+	public void testLastFullList() {
+		SimpleList tester = new SimpleList();
+		tester.add(11);
+		tester.add(10);
+		tester.add(9);
+		tester.add(8);
+		tester.add(7);
+		tester.add(6);
+		tester.add(5);
+		tester.add(4);
+		tester.add(3);
+		tester.add(2);
+		tester.add(1);		
+		
+		assertEquals(11, tester.last(), 
+				"After adding all elements to the list the element at the end "
+				+ "of the list should be 11");
+	}
+	
+	@Test
+	// Test to show that the last method works as intended for the edge
+	// case that the list is empty.
+	public void testLastEmptyList() {
+		SimpleList tester = new SimpleList();
+		tester.add(1);
+		tester.remove(1);
+		
+		assertEquals(-1, tester.last(), 
+				"After removing the only element in the list the last method should "
+				+ "return -1 as the list is empty");
 	}
 	
 }

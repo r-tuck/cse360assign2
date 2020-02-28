@@ -6,6 +6,8 @@
  * This class creates a simple list of up to 10 integers, as well
  * as providing methods to manipulate, traverse, and display the
  * stated list.
+ * 
+ * Github Repo: https://github.com/r-tuck/cse360assign2
  */
 
 public class SimpleList {
